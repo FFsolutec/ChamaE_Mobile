@@ -1,3 +1,4 @@
+import FooterMenu from "@/src/components/menu";
 import { useAuth } from "@/src/context/AuthContext";
 import { router } from "expo-router";
 import { StyleSheet, Text, View } from "react-native";
@@ -12,21 +13,29 @@ export default function HomeProfissional() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Bem-vindo, Profissional!</Text>
-      <Button mode="contained" onPress={handleLogout} style={styles.button}>
-        Sair
-      </Button>
+    <View style={styles.wrapper}>
+      <View style={styles.content}>
+        <Text style={styles.text}>Bem-vindo, Profissional!</Text>
+        <Button mode="contained" onPress={handleLogout} style={styles.button}>
+          Sair
+        </Button>
+      </View>
+
+      <FooterMenu />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  wrapper: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
     backgroundColor: "#fff",
+    justifyContent: "space-between",
+  },
+  content: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
     gap: 16,
   },
   text: {

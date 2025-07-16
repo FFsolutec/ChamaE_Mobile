@@ -7,12 +7,22 @@ type User = {
   name: string;
   email: string;
   tipo: TipoUsuario;
+  categoria: string;
+  subcategorias: string[];
 };
 
 interface AuthContextType {
   user: User | null;
   login: (email: string, password: string) => Promise<boolean>;
-  register: (name: string, email: string, password: string) => Promise<boolean>;
+  register: (
+    name: string,
+    email: string,
+    password: string,
+    tipo?: TipoUsuario,
+    categoria?: string,
+    subcategorias?: string[]
+  ) => Promise<boolean>;
+
   logout: () => void;
   loading: boolean;
 }
@@ -56,15 +66,20 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     await AsyncStorage.setItem("user", JSON.stringify(userData));
     return true;
   };
-  const register = async (name: string, email: string, password: string) => {
-    const tipo: TipoUsuario = email.includes("cliente")
-      ? "cliente"
-      : "profissional";
-
+  const register = async (
+    name: string,
+    email: string,
+    password: string,
+    tipo: TipoUsuario = "cliente",
+    categoria: string = "",
+    subcategorias: string[] = []
+  ) => {
     const userData: User = {
       name,
       email,
       tipo,
+      categoria,
+      subcategorias,
     };
 
     setUser(userData);

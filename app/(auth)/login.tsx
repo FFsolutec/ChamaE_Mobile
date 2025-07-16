@@ -1,5 +1,6 @@
 import { useAuth } from "@/src/context/AuthContext";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { router } from "expo-router";
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
@@ -96,6 +97,12 @@ export default function LoginScreen() {
           <TouchableOpacity>
             <Text style={styles.link}>Esqueceu sua senha?</Text>
           </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => router.push("/(auth)/register")}>
+            <Text style={styles.linkRegister}>
+              Não tem uma conta? Registre-se
+            </Text>
+          </TouchableOpacity>
         </Card.Content>
       </Card>
     </View>
@@ -127,5 +134,11 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginBottom: 8,
     marginLeft: 4,
+  },
+  linkRegister: {
+    marginTop: 16,
+    textAlign: "center",
+    color: "#1e88e5",
+    textDecorationLine: "underline",
   },
 });
