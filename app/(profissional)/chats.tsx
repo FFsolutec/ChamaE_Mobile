@@ -1,20 +1,18 @@
-import HomeProfissionalScreen from "@/screens/profissional";
-
+import ChatListScreen from "@/screens/profissional/chat";
 import FooterMenu from "components/menu";
 import { StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function HomeProfissionalAPp() {
+const ChatProfessional = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
-        <HomeProfissionalScreen />
+        <ChatListScreen />
       </View>
       <FooterMenu />
     </SafeAreaView>
   );
-}
-
+};
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -24,3 +22,4 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
+export default ChatProfessional;

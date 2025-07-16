@@ -1,4 +1,4 @@
-import { useAuth } from "@/src/context/AuthContext";
+import { useAuth } from "@/context/AuthContext";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React from "react";
@@ -10,11 +10,18 @@ export default function FooterMenu() {
 
   if (!user) return null;
 
+  console.log(user);
+
   const isCliente = user.tipo === "cliente";
 
   const tabs = isCliente
     ? [
         { label: "Início", icon: "home", route: "/(cliente)/home" },
+        {
+          label: "Profissionais",
+          icon: "group",
+          route: "/(cliente)/profissionais",
+        },
         { label: "Pedidos", icon: "list-alt", route: "/(cliente)/pedidos" },
         { label: "Conta", icon: "person", route: "/(cliente)/conta" },
       ]
@@ -23,14 +30,19 @@ export default function FooterMenu() {
         {
           label: "Propostas",
           icon: "work",
-          route: "/(profissional)/propostas",
+          route: "/(profissional)/services",
+        },
+        {
+          label: "Chat",
+          icon: "chat",
+          route: "/(profissional)/chats",
         },
         { label: "Conta", icon: "person", route: "/(profissional)/conta" },
       ];
 
   return (
     <View style={styles.container}>
-      {tabs.map((tab) => (
+      {tabs.map((tab: any) => (
         <TouchableOpacity
           key={tab.label}
           style={styles.tab}
@@ -46,13 +58,14 @@ export default function FooterMenu() {
 
 const styles = StyleSheet.create({
   container: {
-    height: 60,
+    height: 50,
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
     borderTopWidth: 1,
     borderColor: "#ddd",
-    backgroundColor: "#fff",
+    backgroundColor: "#ffffff",
+    paddingTop: 5,
   },
   tab: {
     alignItems: "center",

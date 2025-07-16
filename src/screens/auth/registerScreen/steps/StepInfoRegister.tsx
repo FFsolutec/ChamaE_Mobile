@@ -26,9 +26,7 @@ export default function StepInfoRegister({ defaultValues, onNext }: Props) {
         <Image
           style={styles.image}
           resizeMode="cover"
-          source={{
-            uri: "https://www.verx.com.br/wp-content/uploads/2024/05/IMG-Software-e-Aplicativo-e-a-mesma-coisa.webp",
-          }}
+          source={require("@assets/images/backgroundAppRegister.jpg")}
         />
         <View style={styles.overlay}>
           <Text style={styles.headline}>Serviços sob demanda</Text>

@@ -1,4 +1,4 @@
-import { useAuth } from "@/src/context/AuthContext";
+import { useAuth } from "@/context/AuthContext";
 import { router } from "expo-router";
 import React, { useState } from "react";
 import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
@@ -28,12 +28,14 @@ export default function RegisterScreen() {
   const [subcategories, setSubcategories] = useState<string[]>([]);
 
   const handleFinalSubmit = async () => {
-    await register({
-      ...formData,
-      role,
-      category,
-      subcategories,
-    });
+    await register(
+      formData.name,
+      formData.email,
+      formData.password,
+      role || "cliente",
+      category || "",
+      subcategories
+    );
 
     router.push("/home"); // Redireciona após cadastro
   };

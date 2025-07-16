@@ -1,15 +1,8 @@
+import { User } from "@/types/userType";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 type TipoUsuario = "cliente" | "profissional";
-
-type User = {
-  name: string;
-  email: string;
-  tipo: TipoUsuario;
-  categoria: string;
-  subcategorias: string[];
-};
 
 interface AuthContextType {
   user: User | null;
@@ -22,7 +15,6 @@ interface AuthContextType {
     categoria?: string,
     subcategorias?: string[]
   ) => Promise<boolean>;
-
   logout: () => void;
   loading: boolean;
 }
@@ -48,24 +40,92 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     loadUser();
   }, []);
 
+  const generateMockUser = (
+    name: string,
+    email: string,
+    tipo: TipoUsuario,
+    categoria: string = "",
+    subcategorias: string[] = []
+  ): User => {
+    return {
+      _id: "mock-id",
+      username: name.toLowerCase().replace(/\s/g, "."),
+      password: "123456",
+      email,
+      img: "",
+      imgValidate: "",
+      userInfo: {
+        _id: "info-id",
+        firstName: name.split(" ")[0],
+        lastName: name.split(" ")[1] || "",
+        cpf: "000.000.000-00",
+        cnpj: "",
+        cnae: "",
+        cnh: "",
+        enterpriseSocial: "",
+        personType: "fisica",
+        enterpriseName: "",
+        neighborhood: "Centro",
+        address: "Rua Exemplo",
+        number: "123",
+        phone: "(11) 99999-9999",
+        complement: "",
+        birthDate: "2000-01-01",
+        country: "Brasil",
+        city: "São Paulo",
+        state: "SP",
+        zipCode: "00000-000",
+        email,
+        defaultAddress: "",
+        userId: "mock-id",
+        createdAt: "",
+        updatedAt: "",
+      },
+      favorites: [],
+      likes: [],
+      storeId: "",
+      isActive: true,
+      role: tipo,
+      status: "ativo",
+      company: "",
+      categorie: {
+        _id: "cat-id",
+        name: categoria || "Elétrica",
+        icon: "plug",
+        description: "Serviços elétricos",
+        createdAt: "",
+        updatedAt: "",
+        subCategorie:
+          subcategorias?.map((name, i) => ({
+            _id: `sub-${i}`,
+            name,
+            createdAt: "",
+            updatedAt: "",
+          })) || [],
+      },
+      createdAt: "",
+      updatedAt: "",
+    };
+  };
+
   const login = async (email: string, password: string) => {
-    // Aqui você simula ou chama sua API
     if (password !== "123456") return false;
 
     const tipo: TipoUsuario = email.includes("cliente")
       ? "cliente"
       : "profissional";
 
-    const userData: User = {
-      name: tipo === "cliente" ? "João Cliente" : "Maria Profissional",
+    const userData = generateMockUser(
+      tipo === "cliente" ? "João Cliente" : "Maria Profissional",
       email,
-      tipo,
-    };
+      tipo
+    );
 
     setUser(userData);
     await AsyncStorage.setItem("user", JSON.stringify(userData));
     return true;
   };
+
   const register = async (
     name: string,
     email: string,
@@ -74,14 +134,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     categoria: string = "",
     subcategorias: string[] = []
   ) => {
-    const userData: User = {
+    const userData = generateMockUser(
       name,
       email,
       tipo,
       categoria,
-      subcategorias,
-    };
-
+      subcategorias
+    );
     setUser(userData);
     await AsyncStorage.setItem("user", JSON.stringify(userData));
     return true;

@@ -30,9 +30,10 @@ export type UserInfoData = z.infer<typeof userInfoSchema>;
 interface Props {
   defaultValues: UserInfoData;
   onNext: (data: UserInfoData) => void;
+  onBack?: any;
 }
 
-export default function StepUserInfo({ defaultValues, onNext }: Props) {
+export default function StepUserInfo({ defaultValues, onNext, onBack }: Props) {
   const {
     control,
     handleSubmit,

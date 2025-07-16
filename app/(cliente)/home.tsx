@@ -1,5 +1,5 @@
-import FooterMenu from "@/src/components/menu";
-import { useAuth } from "@/src/context/AuthContext";
+import { useAuth } from "@/context/AuthContext";
+import FooterMenu from "components/menu";
 import { router } from "expo-router";
 import { StyleSheet, Text, View } from "react-native";
 import { Button } from "react-native-paper";
