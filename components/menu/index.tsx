@@ -23,7 +23,7 @@ export default function FooterMenu() {
           route: "/(cliente)/profissionais",
         },
         { label: "Pedidos", icon: "list-alt", route: "/(cliente)/pedidos" },
-        { label: "Conta", icon: "person", route: "/(cliente)/conta" },
+        { label: "Conta", icon: "person", route: "/(perfil)/" },
       ]
     : [
         { label: "Início", icon: "home", route: "/(profissional)/home" },
@@ -37,7 +37,7 @@ export default function FooterMenu() {
           icon: "chat",
           route: "/(profissional)/chats",
         },
-        { label: "Conta", icon: "person", route: "/(profissional)/conta" },
+        { label: "Conta", icon: "person", route: "/(perfil)/" },
       ];
 
   return (

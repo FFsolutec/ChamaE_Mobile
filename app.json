@@ -37,6 +37,19 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "05847982-7cab-406b-824c-080bbb1cc696"
+      }
+    },
+    "owner": "ffsolutec",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/05847982-7cab-406b-824c-080bbb1cc696"
     }
   }
 }
