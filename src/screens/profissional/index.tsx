@@ -31,7 +31,7 @@ export default function HomeProfissionalScreen() {
       renderItem={({ item }) => (
         <ServiceCard service={item} onPress={() => handleViewDetails(item)} />
       )}
-      keyExtractor={(item) => item.id.toString()}
+      keyExtractor={(item: any) => item?.id.toString()}
       contentContainerStyle={styles.listContainer}
       ListHeaderComponent={<AppBarHeader title="Serviços Disponíveis" />}
       ListEmptyComponent={

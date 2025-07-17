@@ -1,4 +1,5 @@
 import QuoteFormModal from "@/components/modal";
+import { useAuth } from "@/context/AuthContext";
 import { router, Stack } from "expo-router";
 import { useState } from "react";
 import {
@@ -17,6 +18,8 @@ const CARD_HORIZONTAL_PADDING = 16;
 const IMAGE_WIDTH = width - CARD_HORIZONTAL_PADDING * 2;
 
 export default function ServiceDetailsScreen({ service }: any) {
+  const { user } = useAuth();
+
   const [isModalVisible, setModalVisible] = useState(false);
   const handleOpenModal = () => setModalVisible(true);
   const handleDismissModal = () => setModalVisible(false);
@@ -119,15 +122,33 @@ export default function ServiceDetailsScreen({ service }: any) {
           </Card.Content>
         </Card>
 
-        <Button
-          mode="contained"
-          icon="file-document-edit-outline"
-          style={styles.actionButton}
-          labelStyle={{ fontSize: 16 }}
-          onPress={handleOpenModal} // 3. CORRIGIR O ONPRESS
-        >
-          Enviar Orçamento
-        </Button>
+        {user?.role !== "cliente" && (
+          <>
+            {service.status === "Em Aberto" && (
+              <Button
+                mode="contained"
+                icon="file-document-edit-outline"
+                style={styles.actionButton}
+                labelStyle={{ fontSize: 16 }}
+                onPress={handleOpenModal}
+              >
+                Enviar Orçamento
+              </Button>
+            )}
+          </>
+        )}
+
+        {["Aceito", "Em Execução", "Em Andamento"].includes(service.status) && (
+          <Button
+            mode="outlined"
+            icon="chat"
+            style={styles.actionButton}
+            labelStyle={{ fontSize: 16 }}
+            onPress={() => router.push(`/(profissional)/chat/${service.id}`)}
+          >
+            Conversar com Cliente
+          </Button>
+        )}
       </ScrollView>
 
       <QuoteFormModal
@@ -144,7 +165,7 @@ const styles = StyleSheet.create({
   // ... seus estilos existentes
   container: {
     flex: 1,
-    maxHeight: "80%",
+    // maxHeight: "100%",
   },
   scroll: {
     padding: 16,

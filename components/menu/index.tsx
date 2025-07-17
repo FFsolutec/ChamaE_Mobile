@@ -12,7 +12,7 @@ export default function FooterMenu() {
 
   console.log(user);
 
-  const isCliente = user.tipo === "cliente";
+  const isCliente = user.role === "cliente";
 
   const tabs = isCliente
     ? [
@@ -22,7 +22,7 @@ export default function FooterMenu() {
           icon: "group",
           route: "/(cliente)/profissionais",
         },
-        { label: "Pedidos", icon: "list-alt", route: "/(cliente)/pedidos" },
+        { label: "Pedidos", icon: "list-alt", route: "/(service)/" },
         { label: "Conta", icon: "person", route: "/(perfil)/" },
       ]
     : [
@@ -30,7 +30,7 @@ export default function FooterMenu() {
         {
           label: "Propostas",
           icon: "work",
-          route: "/(profissional)/services",
+          route: "/(service)/",
         },
         {
           label: "Chat",

@@ -4,7 +4,7 @@ import { router } from "expo-router";
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
-import { Button, Card, Text, TextInput } from "react-native-paper";
+import { Button, Card, Snackbar, Text, TextInput } from "react-native-paper";
 import { z } from "zod";
 
 const schema = z.object({
@@ -18,6 +18,9 @@ export default function LoginScreen() {
   const [showPassword, setShowPassword] = useState(false);
   const { login } = useAuth();
 
+  const [snackbarVisible, setSnackbarVisible] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+
   const {
     control,
     handleSubmit,
@@ -29,15 +32,29 @@ export default function LoginScreen() {
   const onSubmit = async (data: LoginFormData) => {
     const ok = await login(data.email, data.password);
     if (ok) {
-      alert("Login realizado!");
-      // Aqui você pode redirecionar baseado no tipo
+      setSnackbarMessage("Login realizado com sucesso!");
+      setSnackbarVisible(true);
+      // redirecionamento aqui, se quiser
     } else {
-      alert("Falha no login!");
+      setSnackbarMessage("Falha no login. Verifique seus dados.");
+      setSnackbarVisible(true);
     }
   };
 
   return (
     <View style={styles.container}>
+      <Snackbar
+        visible={snackbarVisible}
+        onDismiss={() => setSnackbarVisible(false)}
+        duration={3000}
+        action={{
+          label: "OK",
+          onPress: () => setSnackbarVisible(false),
+        }}
+      >
+        {snackbarMessage}
+      </Snackbar>
+
       <Card style={styles.card}>
         <Card.Title title="Entrar" />
         <Card.Content>

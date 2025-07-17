@@ -5,18 +5,18 @@ import { useEffect } from "react";
 import { View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function ProfessionalLayout() {
+export default function ClientLayout() {
   const { user, loading } = useAuth();
 
   useEffect(() => {
     if (!loading) {
-      if (!user || user.role !== "profissional") {
+      if (!user) {
         router.replace("/(auth)/login");
       }
     }
   }, [user, loading]);
 
-  if (loading || !user || user.role !== "profissional") {
+  if (loading || !user) {
     return router.replace("/(auth)/login");
   }
 

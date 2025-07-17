@@ -1,5 +1,6 @@
 import { User } from "@/types/userType";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { router } from "expo-router";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 type TipoUsuario = "cliente" | "profissional";
@@ -149,6 +150,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const logout = async () => {
     setUser(null);
     await AsyncStorage.removeItem("user");
+    router.replace("/(auth)/login");
   };
 
   return (

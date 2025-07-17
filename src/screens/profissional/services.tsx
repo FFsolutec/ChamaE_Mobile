@@ -1,5 +1,6 @@
 import RequestCard from "@/components/cards/RequestCard";
 import { useAuth } from "@/context/AuthContext";
+import { allRequests } from "hooks/allRequests";
 import { useState } from "react";
 import {
   FlatList,
@@ -23,31 +24,6 @@ export default function MyRequestsScreen() {
   const { user } = useAuth();
 
   const isCLient = user?.role === "cliente";
-
-  const allRequests = [
-    {
-      id: 1,
-      titulo: "Instalação de Tomadas",
-      local: "São Paulo, SP",
-      status: "Em Aberto",
-      urgencia: "Normal",
-      descricao: "Preciso instalar 5 tomadas em diferentes cômodos.",
-      criadoEm: "10/05/2025",
-      prazo: "15/05/2025",
-      tipo: "cliente",
-    },
-    {
-      id: 2,
-      titulo: "Conserto de Vazamento",
-      local: "São Paulo, SP",
-      status: "Finalizado",
-      urgencia: "Alta",
-      descricao: "Vazamento no banheiro.",
-      criadoEm: "01/05/2025",
-      prazo: "03/05/2025",
-      tipo: "cliente",
-    },
-  ];
 
   const filteredRequests = allRequests.filter((r) => {
     const matchSearch = r.titulo.toLowerCase().includes(search.toLowerCase());

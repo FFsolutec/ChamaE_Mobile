@@ -1,8 +1,12 @@
 // components/cards/RequestCard.tsx
+import { useAuth } from "@/context/AuthContext";
+import { router } from "expo-router";
 import { StyleSheet, View } from "react-native";
 import { Button, Card, Chip, Text } from "react-native-paper";
 
 export default function RequestCard({ data }: any) {
+  const { user } = useAuth();
+
   return (
     <Card style={styles.card}>
       <Card.Title title={data.titulo} titleStyle={styles.title} />
@@ -29,7 +33,15 @@ export default function RequestCard({ data }: any) {
             : "Status: " + data.status}
         </Text>
 
-        <Button mode="outlined" style={styles.button} onPress={() => {}}>
+        <Button
+          mode="outlined"
+          style={styles.button}
+          onPress={() =>
+            user?.role !== "cliente"
+              ? router.push(`/(profissional)/my_services/${data.id}` as any)
+              : router.push(`/(service)/service/${data.id}` as any)
+          }
+        >
           Ver Detalhes
         </Button>
       </Card.Content>
